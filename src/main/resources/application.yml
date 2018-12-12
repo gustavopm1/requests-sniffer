@@ -3,3 +3,5 @@ server.port: 8090
 com:
   gotcamel:
     baseUrlTMDB: https://api.themoviedb.org/3/
+
+logging.level.com.gustavopm1.requestssniffer.feign.SnifferClient: debug
