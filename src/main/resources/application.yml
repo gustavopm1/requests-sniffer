@@ -1,0 +1,5 @@
+server.port: 8090
+
+com:
+  gotcamel:
+    baseUrlTMDB: https://api.themoviedb.org/3/
