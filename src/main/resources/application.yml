@@ -1,7 +1,15 @@
 server.port: 8090
 
+enable-mock: true
+
 com:
   gotcamel:
     baseUrlTMDB: https://api.themoviedb.org/3/
 
-logging.level.com.gustavopm1.requestssniffer.feign.SnifferClient: debug
+spring.redis:
+  host: 192.168.99.100
+  port: 6379
+
+logging.level:
+  org.springframework: DEBUG
+  com.gustavopm1.requestssniffer.feign.SnifferClient: debug
