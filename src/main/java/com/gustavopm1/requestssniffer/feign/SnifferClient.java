@@ -13,6 +13,6 @@ import javax.websocket.server.PathParam;
 @FeignClient(name = "Sniffer", url = "${com.gotcamel.baseUrlTMDB}")
 public interface SnifferClient {
 
-    @GetMapping(value = "/{movieId}")
+    @GetMapping(value = "/movie/{movieId}")
     ResponseEntity<Object> getMovieById(@PathVariable("movieId") String movieId, @RequestParam("api_key") String apiKey);
 }

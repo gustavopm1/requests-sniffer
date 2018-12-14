@@ -19,7 +19,7 @@ public class SnifferController {
     @Autowired
     public SnifferService snifferService;
 
-    @GetMapping(value = "/movie/{movieId}")
+    @GetMapping(value = "/{movieId}")
     public Object getMovieById(@PathVariable("movieId") String movieId, @RequestParam("api_key") String apiKey){
         Object o = snifferService.snifferGetMovieById(movieId, apiKey);
         return o;
