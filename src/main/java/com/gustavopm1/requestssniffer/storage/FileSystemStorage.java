@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 @Service
 @Slf4j
-public class FilesystemStorage {
+public class FileSystemStorage {
 
     private String dataPath = "./data";
 
@@ -94,7 +94,7 @@ public class FilesystemStorage {
 
     private String sanitizedUrl(String url){
         if(url.contains("?")){
-            return url.split("\\?")[0];
+            return url.split("\\?")[0].replace(":","");
         }
         return url;
     }

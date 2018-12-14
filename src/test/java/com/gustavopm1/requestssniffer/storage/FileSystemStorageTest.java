@@ -18,10 +18,10 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FilesystemStorageTest {
+public class FileSystemStorageTest {
 
     @Autowired
-    private FilesystemStorage storage;
+    private FileSystemStorage storage;
 
 
     @Test
