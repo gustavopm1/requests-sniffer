@@ -15,7 +15,11 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class SnifferService {
@@ -47,12 +51,18 @@ public class SnifferService {
 
         if (!enableMock) {
             RestTemplate restTemplate = new RestTemplate();
+            Map<String, String> headers = Collections.list(((HttpServletRequest) request).getHeaderNames())
+                    .stream()
+                    .collect(Collectors.toMap(h -> h, request::getHeader));
+
             responseEntity = restTemplate.exchange(url,
                     HttpMethod.valueOf(request.getMethod()),
                     new HttpEntity(httpHeaders),
                     Object.class);
 
-            fileSystemStorage.persistRequest(url, new HashMap<>(), responseEntity.getBody());
+            Map<String, Object> headersInfo = getHeadersInfo(responseEntity.getHeaders());
+
+            fileSystemStorage.persistRequest(url, headersInfo, responseEntity.getBody());
         } else {
             BufferBody bufferBody = fileSystemStorage.loadRequest(url);
             return new ResponseEntity(bufferBody, HttpStatus.OK);
@@ -60,5 +70,15 @@ public class SnifferService {
         return responseEntity;
     }
 
+    private Map<String, Object> getHeadersInfo(HttpHeaders request) {
+
+        Map<String, Object> map = new HashMap<>();
+
+        request.keySet().stream().forEach(s -> {
+            String s1 = request.get(s).get(0);
+            map.put(s, s1);
+        });
+        return map;
+    }
 
 }
